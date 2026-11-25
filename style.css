@@ -1,0 +1,233 @@
+/*画面全体の設定*/
+body{
+    font-family: sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*各画面の設定*/
+.screen{
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+/*非表示にするためのクラス*/
+.hidden{
+    display: none !important;
+}
+
+/*入力枠のデザイン*/
+input[type="text"]{
+    padding: 10px;
+    font-size: 24px;
+    width: 150px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+/*ボタンデザイン*/
+button{
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#login-btn{
+    background-color: #007bff;
+    font-size: 18px;
+    padding: 10px 30px;
+}
+
+/*メニュー用ボタン*/
+.menu-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.menu-btn{
+    padding: 20px;
+    font-size: 20px;
+    background-color: #28a745;
+}
+
+#logout-btn{
+    background-color: #6c757d;
+}
+
+/*レジ画面専用のレイアウト*/
+#register-screen{
+    max-width: 700px;       /*少し広め*/
+}
+
+.register-container{
+    display: flex;
+    gap: 20px;
+    text-align: left;
+}
+
+.register-main{
+    flex: 2;                /*左側比率*/
+}
+
+.input-area{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-area input{
+    width: 250px;
+    margin-bottom: 0;
+}
+
+.laster-item{
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.totals{
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.totals p, totals h3{
+    margin: 5px 0;
+    text-align: right;
+}
+
+/*右側のサイドバー*/
+.register-sidebar{
+    flex: 1;
+    display: flex;
+    flex-direction: column;     /* 横並び*/
+    gap: 15px;
+}
+
+.side-btn{
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.side-btn.danger{ background-color: #dc3545;}
+.side-btn.action{ background-color: #ffc107; color: black; font-weight: bold;}
+.side-btn.normal{ background-color: #6c757d;}
+
+/* レジ画面用のデザイン */
+.header-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.input-area{
+    margin-bottom: 20px;
+}
+
+.latest-display{
+    background-color: #e9ecef;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.item-list{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    min-height: 150px;      /*　だいたい5件分*/
+}
+
+.item-list li{
+    padding: 10px;
+    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-display{
+    text-align: right;
+    font-size: 18px;
+    padding-top: 10px;
+    border-top: 2px solid #333;
+}
+
+.total-display strong{
+    font-size: 24px;
+    color: #d9534f;
+}
+
+.action-buttons{
+    display: flax;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.danger-btn{ background-color: #dc3534;}
+.primary-btn{ background-color: #007bff;}
+.nav-btn{ background-color: #6c757d;}
+
+/* --- 会計画面用のデザイン --- */
+.checkout-summary{
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.checkout-summary h3{
+    font-size: 28px;
+    color: #d9534f;
+    margin: 10px 0 0 0;
+}
+
+.tendered-area{
+    margin-bottom: 20px;
+}
+
+#tendered-amount{
+    font-size: 24px;
+    padding: 10px;
+    width: 200px;
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+#change-area{
+    background-color: #d4edda;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.change-text{
+    font-size: 28px;
+    color: #28a745;
+    margin-top: 0;
+}

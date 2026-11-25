@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店舗管理システム</title>
+    <!-- CSSファイルを読み込む -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ①ログインページ -->
+    <div id="login-screen" class="screen">
+        <div class="login-box">
+            <h2>スタッフコードを入力してください</h2>
+            <input type="text" id="staff-code" placeholder="コード入力">
+            <button id="login-btn">ログイン</button>
+            <div class="hints">
+                <p>一般スタッフコード 0000</p>
+                <p>管理者コード 9999</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ②メニューページ（初期状態ではCSSで非表示にしておく） -->
+    <div id="menu-screen" class="screen hidden">
+        <h2>メインメニュー</h2>
+        <p id="welcome-message"></p>
+        <div class="menu-buttons">
+            <button class="menu-btn" id="register-nav-btn">レジ売り上げ</button>
+            <button class="menu-btn" id="search-nav-btn">商品検索</button>
+            <button class="menu-btn" id="manage-nav-btn">商品管理画面</button>
+        </div>
+        <!-- 動作テスト用のログアウトボタン -->
+        <button id="logout-btn">ログアウト</button>
+    </div>
+
+    <!-- ③レジ売り上げページ -->
+    <div id="register-screen" class="screen hidden" style="max-width: 700px;">
+        <div class="header-flex">
+            <h2>レジ売り上げ</h2>
+            <button class="nav-btn" id="back-to-menu-btn">戻る</button>
+        </div>
+
+        <!-- バーコード入力エリア -->
+        <div class="input-area">
+            <input type="text" id="barcode-input" placeholder="JANまたはストアコード">
+            <button id="add-item-btn">商品追加</button>
+        </div>
+
+        <!-- 直近の商品表示（上半分） -->
+        <div class="latest-display">
+            <p>前回入力: <span id="latest-name">--</span></p>
+            <p>税抜価格: <span id="latest-price">0</span> 円</p>
+        </div>
+
+        <!-- 商品リスト表示（下半分・最大5件） -->
+        <ul id="register-list" class="item-list">
+            <!-- ここにJavaScriptで商品が追加されます -->
+        </ul>
+
+        <!-- 合計金額表示 -->
+        <div class="total-display">
+            <p>合計商品点数: <span id="total-count">0</span> 点</p>
+            <p>合計金額（税抜）: <span id="total-ex-tax">0</span> 円</p>
+            <p>合計金額（税込）: <strong id="total-in-tax">0</strong> 円</p>
+        </div>
+
+        <!-- 操作ボタン -->
+        <div class="action-buttons">
+            <button id="delete-last-btn" class="danger-btn">削除（直近）</button>
+            <button id="clear-all-btn" class="danger-btn">全削除</button>
+            <button id="checkout-btn" class="primary-btn">会計へ進む</button>
+        </div>
+    </div>
+
+    <!-- ④会計ページ -->
+     <div id="checkout-screen" class="screen hidden">
+        <h2>お会計</h2>
+
+        <!-- 合計表示エリア -->
+         <div class="checkout-summary">
+            <p>合計点数: <span id="checkout-total-count">0</span> 点</p>
+            <h3>合計金額(税込): <span id="checkout-total-in-tax">0</span> 円</h3>
+         </div>
+
+         <!-- お預かり金額入力エリア-->
+          <div class="tendered-area">
+            <p>お預かり金額を入力してください</p>
+            <!-- type="number"でスマホなどで数字キーボードが開く-->
+             <input type="number" id="tendered-amount" placeholder="金額を入力">
+             <button id="execute-checkout-btn" class="primary-btn hidden">会計</button>
+          </div>
+
+          <!-- お釣り・終了ボタンエリア(初期は非表示)-->
+           <div id="change-area" class="hidden">
+            <h3 class="change-text">お釣り: <span id="change-amount">0</span> 円</h3>
+            <button id="finish-checkout-btn" class="primary-btn">終了</button> 
+           </div>
+
+           <!-- レジに戻るボタン-->
+            <div style="margin-top: 30px;">
+                <button id="cancel-checkout-btn" class="nav-btn">レジに戻る</button>
+            </div>
+     </div>
+
+     <!-- 商品検索ページ -->
+     <div id="search-screen" class="screen hidden">
+        <div class="header-flex">
+            <h2>商品検索</h2>
+            <button class="nav-btn" id="search-back-btn">戻る</button>
+        </div>
+
+        <div class="input-area">
+            <P>商品のJANコードかストアコードを入力してください</P>
+            <input tupe="text" id="search-input" placeholder="コード入力">
+            <button id="search-execute-btn" class="primary-btn">検索</button>
+        </div>
+
+        <!-- 検索結果表示エリア(初期状態は非表示) -->
+         <div id="search-result-area" class="checkout-summary hidden" style="text-align: left; margin-top: 20px;">
+            <h3 id="search-res-name" style="margin-top: 0;">---</h3>
+            <p>販売価格(税抜): <span id="search-res-price-ex">0</span> 円</p>
+            <p>販売価格(税込): <span id="search-res-price-in">0</span> 円</p>
+            <p>現在の在庫数: <span id="search-res-stock">0</span> 点</p>
+            <p>在庫定数: <span id="search-res-threshold">0</span> 点</p>
+         </div>
+     </div>
+
+     <!-- ⑤・⑥ 商品・税率管理ページ -->
+    <div id="manage-screen" class="screen hidden" style="max-width: 700px;">
+        <div class="header-flex">
+            <h2>商品・税率管理</h2>
+            <button class="nav-btn" id="manage-back-btn">戻る</button>
+        </div>
+
+        <!-- ⑥ 税率管理エリア -->
+        <div class="checkout-summary" style="text-align: left;">
+            <h3 style="margin-top: 0;">税率管理</h3>
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <label>食品税率 (%): <input type="number" id="tax-rate-food-input" style="width: 60px; font-size: 18px;"></label>
+                <label>非食品税率 (%): <input type="number" id="tax-rate-nonfood-input" style="width: 60px; font-size: 18px;"></label>
+            </div>
+            <button id="save-tax-btn" class="primary-btn">税率を更新（全商品に適用）</button>
+        </div>
+
+        <!-- ⑤ 商品検索・編集エリア -->
+        <div class="input-area" style="margin-top: 20px;">
+            <p>編集する商品のJANまたはストアコード</p>
+            <input type="text" id="manage-search-input" placeholder="コード入力">
+            <button id="manage-search-btn" class="primary-btn">検索</button>
+        </div>
+
+        <!-- 商品編集フォーム（初期状態は非表示） -->
+        <div id="edit-form-area" class="checkout-summary hidden" style="text-align: left;">
+            <h3 style="margin-top: 0;">商品情報の編集</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div><label>商品名: </label><input type="text" id="edit-name" style="width: 80%;"></div>
+                <div>
+                    <label>区分: </label>
+                    <select id="edit-category" style="font-size: 16px; padding: 5px;">
+                        <option value="food">食品</option>
+                        <option value="nonFood">非食品</option>
+                    </select>
+                </div>
+                <div><label>仕入価格: </label><input type="number" id="edit-purchase"></div>
+                <div><label>販売価格(税抜): </label><input type="number" id="edit-price-ex"></div>
+                <!-- disabled属性をつけることで、ユーザーは直接編集できなくなります -->
+                <div><label>販売価格(税込): </label><input type="number" id="edit-price-in" disabled style="background-color: #ddd;"></div>
+                <div><label>現在の在庫数: </label><input type="number" id="edit-stock"></div>
+                <div><label>在庫定数: </label><input type="number" id="edit-threshold"></div>
+            </div>
+            <button id="save-product-btn" class="primary-btn" style="margin-top: 20px; background-color: #28a745;">商品情報を保存</button>
+        </div>
+    </div>
+
+    <!-- JavaScriptファイルを読み込む -->
+    <script src="main.js"></script>
+
+</body>
+</html>
